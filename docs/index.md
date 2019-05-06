@@ -1,5 +1,30 @@
 # Whisper Southband API
 
+## Install
+
+```bash
+#!/bin/bash
+
+# download
+mkdir openwsn-sdn
+cd ./openwsn-sdn/
+git clone https://github.com/SuperiorNiels/openwsn-fw-root.git
+git clone https://github.com/SuperiorNiels/openwsn-fw-node.git
+git clone https://github.com/SuperiorNiels/openvisualizer.git
+git clone https://github.com/openwsn-berkeley/openwsn-fw
+git clone https://github.com/openwsn-berkeley/coap.git
+cd openvisualizer/
+git checkout develop
+
+# build
+cd ../openwsn-fw-root/
+scons board=python toolchain=gcc oos_openwsn
+cd ../openwsn-fw-node/
+scons board=python toolchain=gcc oos_openwsn
+cd ../openwsn-fw/
+scons board=python toolchain=gcc oos_openwsn
+```
+
 ## Commands
 
 ### Whisper dio
@@ -114,6 +139,8 @@ if self.simulatorMode:
             self.moteProbes += [moteProbe.moteProbe(emulatedMote=moteHandler)]
             print "Started an openwsn node"
 ```
+
+
 
 
 
