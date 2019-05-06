@@ -1,0 +1,59 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Whisper Southband API\n\n\nCommands\n\n\nWhisper dio\n\n\nwhisper dio <target_id> <source_id> <rank> <whisper_node>\n\n* <target_id>: id of the node the dio should be sent to (hex).\n* <source_id>: id of the node the dio should be from (hex).\n* <rank>: rank to sent.\n* <whisper_node>: root or number\n\n\n\nExamples:\n\n\n\n\nwhisper dio 1 2 5000 root\n\n\n\n\nWill execute the command on the root node: a dio will be sent to node 1.\n\n\n\n\nwhisper dio 1 2 5000 4\n\n\n\n\nWill execute the command on the whisper node with id 4: a dio will be sent to node 1.\n\n\nWhisper sixtop\n\n\nSixtop Add\n\n\nwhisper 6p add <target_id> <source_id> <cellOptions> <cellInfo> <whisper_node>\n\n* <target_id>: id of the node the command should be sent to (hex).\n* <source_id>: id of the node the command should be from (hex).\n* <cellOptions>: TX or RX or TXRX\n* <cellInfo>: random or cell <slotOffset> <channel>\n* <whisper_node>: number\n\n\n\nExamples:\n\n\n\n\nwhisper 6p add 2 3 TX cell 10 10 4\n\n\n\n\nCommand will be sent to whisper node with id 4, a 6p add command will be sent to 2 and 3 will be impersonated. On 2 a TX cell will be added with slot offset 10 and channel 10.\n\n\n\n\nwhisper 6p add 2 3 RX random 4\n\n\n\n\nA random RX cell will be added on 2.\n\n\nSixtop Delete\n\n\nwhisper 6p delete <target_id> <source_id> <cellOptions> <cellInfo> <whisper_node>\n\n* <target_id>: id of the node the command should be sent to (hex).\n* <source_id>: id of the node the command should be from (hex).\n* <cellOptions>: TX or RX or TXRX\n* <cellInfo>: random or cell <slotOffset> <channel>\n* <whisper_node>: number\n\n\n\nSixtop List\n\n\nwhisper 6p list <target_id> <source_id> <cellOptions> <max_nr_cells> <listing_offset> <whisper_node>\n\n* <target_id>: id of the node the command should be sent to (hex).\n* <source_id>: id of the node the command should be from (hex).\n* <cellOptions>: TX or RX or TXRX\n* <max_nr_cells>: max. number of cells to list.\n* <listing_offset>: listing offset.\n* <whisper_node>: number\n\n\n\nSixtop Clear\n\n\nwhisper 6p clear <target_id> <source_id> <whisper_node>\n\n* <target_id>: id of the node the command should be sent to (hex).\n* <source_id>: id of the node the command should be from (hex).\n* <whisper_node>: number\n\n\n\nWhisper link testing\n\n\nwhisper link <node1> <node2>\n\n* <node1>: node the ping request will be sent to.\n* <node2>: node the ping request should pass before reaching node1.\n\n\n\nChange the firmware of nodes in openvisualizer\n\n\nThe firmware of each node can be changed by editing the file: \nopenvisualizer/bin/openVisualizerApp.py\n (line 90)\n\n\nIn the follwing piece of code the first node (0) is started with the root firmware, the 4 node (3) is started with the whisper node firmware, the other nodes start with the normal OpenWSN firmware.\n\n\nif self.simulatorMode:\n    # in \"simulator\" mode, motes are emulated\n    sys.path.append(os.path.join(self.datadir, 'sim_files'))\n    import openwsn.oos_openwsn\n    import whisper_node.oos_openwsn\n    import whisper_root.oos_openwsn\n\n    self.moteProbes       = []\n    for i in range(self.numMotes):\n        if i == 0:\n            # Start a whisper root node\n            MoteHandler.readNotifIds(\n                os.path.join(self.datadir, 'sim_files', 'whisper_root', 'openwsnmodule_obj.h'))\n            moteHandler = MoteHandler.MoteHandler(whisper_root.oos_openwsn.OpenMote())\n            self.simengine.indicateNewMote(moteHandler)\n            self.moteProbes += [moteProbe.moteProbe(emulatedMote=moteHandler)]\n            print \"Started a whisper root node\"\n        elif i == 3:\n            # Start a whisper node\n            MoteHandler.readNotifIds(\n                os.path.join(self.datadir, 'sim_files', 'whisper_node', 'openwsnmodule_obj.h'))\n            moteHandler = MoteHandler.MoteHandler(whisper_node.oos_openwsn.OpenMote())\n            self.simengine.indicateNewMote(moteHandler)\n            self.moteProbes += [moteProbe.moteProbe(emulatedMote=moteHandler)]\n            print \"Started a whisper node\"\n        else:\n            # Start a normal openwsn node\n            MoteHandler.readNotifIds(\n                os.path.join(self.datadir, 'sim_files', 'openwsn', 'openwsnmodule_obj.h'))\n            moteHandler = MoteHandler.MoteHandler(openwsn.oos_openwsn.OpenMote())\n            self.simengine.indicateNewMote(moteHandler)\n            self.moteProbes += [moteProbe.moteProbe(emulatedMote=moteHandler)]\n            print \"Started an openwsn node\"",
+            "title": "Home"
+        },
+        {
+            "location": "/#whisper-southband-api",
+            "text": "",
+            "title": "Whisper Southband API"
+        },
+        {
+            "location": "/#commands",
+            "text": "",
+            "title": "Commands"
+        },
+        {
+            "location": "/#whisper-dio",
+            "text": "whisper dio <target_id> <source_id> <rank> <whisper_node>\n\n* <target_id>: id of the node the dio should be sent to (hex).\n* <source_id>: id of the node the dio should be from (hex).\n* <rank>: rank to sent.\n* <whisper_node>: root or number  Examples:   whisper dio 1 2 5000 root   Will execute the command on the root node: a dio will be sent to node 1.   whisper dio 1 2 5000 4   Will execute the command on the whisper node with id 4: a dio will be sent to node 1.",
+            "title": "Whisper dio"
+        },
+        {
+            "location": "/#whisper-sixtop",
+            "text": "",
+            "title": "Whisper sixtop"
+        },
+        {
+            "location": "/#sixtop-add",
+            "text": "whisper 6p add <target_id> <source_id> <cellOptions> <cellInfo> <whisper_node>\n\n* <target_id>: id of the node the command should be sent to (hex).\n* <source_id>: id of the node the command should be from (hex).\n* <cellOptions>: TX or RX or TXRX\n* <cellInfo>: random or cell <slotOffset> <channel>\n* <whisper_node>: number  Examples:   whisper 6p add 2 3 TX cell 10 10 4   Command will be sent to whisper node with id 4, a 6p add command will be sent to 2 and 3 will be impersonated. On 2 a TX cell will be added with slot offset 10 and channel 10.   whisper 6p add 2 3 RX random 4   A random RX cell will be added on 2.",
+            "title": "Sixtop Add"
+        },
+        {
+            "location": "/#sixtop-delete",
+            "text": "whisper 6p delete <target_id> <source_id> <cellOptions> <cellInfo> <whisper_node>\n\n* <target_id>: id of the node the command should be sent to (hex).\n* <source_id>: id of the node the command should be from (hex).\n* <cellOptions>: TX or RX or TXRX\n* <cellInfo>: random or cell <slotOffset> <channel>\n* <whisper_node>: number",
+            "title": "Sixtop Delete"
+        },
+        {
+            "location": "/#sixtop-list",
+            "text": "whisper 6p list <target_id> <source_id> <cellOptions> <max_nr_cells> <listing_offset> <whisper_node>\n\n* <target_id>: id of the node the command should be sent to (hex).\n* <source_id>: id of the node the command should be from (hex).\n* <cellOptions>: TX or RX or TXRX\n* <max_nr_cells>: max. number of cells to list.\n* <listing_offset>: listing offset.\n* <whisper_node>: number",
+            "title": "Sixtop List"
+        },
+        {
+            "location": "/#sixtop-clear",
+            "text": "whisper 6p clear <target_id> <source_id> <whisper_node>\n\n* <target_id>: id of the node the command should be sent to (hex).\n* <source_id>: id of the node the command should be from (hex).\n* <whisper_node>: number",
+            "title": "Sixtop Clear"
+        },
+        {
+            "location": "/#whisper-link-testing",
+            "text": "whisper link <node1> <node2>\n\n* <node1>: node the ping request will be sent to.\n* <node2>: node the ping request should pass before reaching node1.",
+            "title": "Whisper link testing"
+        },
+        {
+            "location": "/#change-the-firmware-of-nodes-in-openvisualizer",
+            "text": "The firmware of each node can be changed by editing the file:  openvisualizer/bin/openVisualizerApp.py  (line 90)  In the follwing piece of code the first node (0) is started with the root firmware, the 4 node (3) is started with the whisper node firmware, the other nodes start with the normal OpenWSN firmware.  if self.simulatorMode:\n    # in \"simulator\" mode, motes are emulated\n    sys.path.append(os.path.join(self.datadir, 'sim_files'))\n    import openwsn.oos_openwsn\n    import whisper_node.oos_openwsn\n    import whisper_root.oos_openwsn\n\n    self.moteProbes       = []\n    for i in range(self.numMotes):\n        if i == 0:\n            # Start a whisper root node\n            MoteHandler.readNotifIds(\n                os.path.join(self.datadir, 'sim_files', 'whisper_root', 'openwsnmodule_obj.h'))\n            moteHandler = MoteHandler.MoteHandler(whisper_root.oos_openwsn.OpenMote())\n            self.simengine.indicateNewMote(moteHandler)\n            self.moteProbes += [moteProbe.moteProbe(emulatedMote=moteHandler)]\n            print \"Started a whisper root node\"\n        elif i == 3:\n            # Start a whisper node\n            MoteHandler.readNotifIds(\n                os.path.join(self.datadir, 'sim_files', 'whisper_node', 'openwsnmodule_obj.h'))\n            moteHandler = MoteHandler.MoteHandler(whisper_node.oos_openwsn.OpenMote())\n            self.simengine.indicateNewMote(moteHandler)\n            self.moteProbes += [moteProbe.moteProbe(emulatedMote=moteHandler)]\n            print \"Started a whisper node\"\n        else:\n            # Start a normal openwsn node\n            MoteHandler.readNotifIds(\n                os.path.join(self.datadir, 'sim_files', 'openwsn', 'openwsnmodule_obj.h'))\n            moteHandler = MoteHandler.MoteHandler(openwsn.oos_openwsn.OpenMote())\n            self.simengine.indicateNewMote(moteHandler)\n            self.moteProbes += [moteProbe.moteProbe(emulatedMote=moteHandler)]\n            print \"Started an openwsn node\"",
+            "title": "Change the firmware of nodes in openvisualizer"
+        }
+    ]
+}
